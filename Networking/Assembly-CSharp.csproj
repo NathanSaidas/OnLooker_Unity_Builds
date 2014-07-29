@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Networking\NetLobby.cs" />
      <Compile Include="Assets\Scripts\Networking\NetManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetPlayer.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetPredictor.cs" />
      <Compile Include="Assets\Scripts\Networking\NetServer.cs" />
      <Compile Include="Assets\Scripts\Networking\NetServerInput.cs" />
      <Compile Include="Assets\Scripts\Networking\NetWorld.cs" />

@@ -7,12 +7,17 @@ namespace OnLooker
     [RequireComponent(typeof(NetworkView))]
 	public class NetClientInput : MonoBehaviour {
 
+        public float speed = 10.0f;
+        private CharacterController controller;
+
         private NetworkPlayer m_Owner;
         private float lastMotionH = 0.0f;
         private float lastMotionV = 0.0f;
 
 
-        
+        private float positionErrorThreshhold = 0.2f;
+        public Vector3 serverPos;
+        public Quaternion serverRot;
 		
 
         [RPC]
@@ -61,13 +66,28 @@ namespace OnLooker
                     lastMotionH = mH;
                     lastMotionV = mV;
 
+                    controller.Move(new Vector3(lastMotionH * speed * Time.deltaTime, 0.0f, lastMotionV * speed * Time.deltaTime));
+
 
                     
                 }
             }
         }
 
-        
+
+        public void lerpToTarget()
+        {
+            float distance = Vector3.Distance(transform.position, serverPos);
+
+            if (distance >= positionErrorThreshhold)
+            {
+                float lerp = ((1.0f / distance) * speed) / 100.0f;
+
+                transform.position = Vector3.Lerp(transform.position, serverPos, lerp);
+                transform.rotation = Quaternion.Slerp(transform.rotation, serverRot, lerp);
+            }
+
+        }
 	}
 
 }

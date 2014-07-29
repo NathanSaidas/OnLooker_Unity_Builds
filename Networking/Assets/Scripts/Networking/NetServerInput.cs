@@ -11,15 +11,12 @@ namespace OnLooker
 	public class NetServerInput : MonoBehaviour {
 
         public float speed = 10.0f;
-
         private CharacterController controller;
 
         private float horizontalMotion = 0.0f;
         private float verticalMotion = 0.0f;
 
-        private float positionErrorThreshhold = 0.2f;
-        private Vector3 serverPos;
-        private Quaternion serverRot;
+        
 
 		// Use this for initialization
 		void Start ()
@@ -52,19 +49,7 @@ namespace OnLooker
         }
 
 
-        void lerpToTarget()
-        {
-            float distance = Vector3.Distance(transform.position, serverPos);
-
-            if (distance >= positionErrorThreshhold)
-            {
-                float lerp = ((1.0f / distance) * speed) / 100.0f;
-
-                transform.position = Vector3.Lerp(transform.position, serverPos, lerp);
-                transform.rotation = Quaternion.Slerp(transform.rotation, serverRot, lerp);
-            }
-
-        }
+        
 	}
 
 }
