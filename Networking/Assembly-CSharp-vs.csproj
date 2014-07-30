@@ -60,6 +60,11 @@
      <Compile Include="Assets\Scripts\Networking\S_NetPlayer.cs" />
      <Compile Include="Assets\Scripts\Networking\S_NetServerManager.cs" />
      <Compile Include="Assets\Scripts\Networking\WorldGUI.cs" />
+     <Compile Include="Assets\Scripts\Unit\AIUnitControl.cs" />
+     <Compile Include="Assets\Scripts\Unit\S_UnitAI.cs" />
+     <Compile Include="Assets\Scripts\Unit\S_UnitSpawner.cs" />
+     <Compile Include="Assets\Scripts\Unit\UnitControl.cs" />
+     <Compile Include="Assets\Scripts\Unit\UnitSelectionManager.cs" />
      <Compile Include="Assets\Scripts\Utils\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Utils\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\Utils\Utils.cs" />
