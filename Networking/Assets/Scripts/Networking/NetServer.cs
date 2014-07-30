@@ -17,7 +17,7 @@ namespace OnLooker
         }
 
         [SerializeField()]
-        private List<NetPlayer> m_Player;
+        private List<C_NetPlayer> m_Player;
 
 		// Use this for initialization
 		void Start () {

@@ -14,11 +14,15 @@ namespace OnLooker
         private float lastMotionH = 0.0f;
         private float lastMotionV = 0.0f;
 
-
+        [SerializeField()]
         private float positionErrorThreshhold = 0.2f;
         public Vector3 serverPos;
         public Quaternion serverRot;
-		
+
+        private void Start()
+        {
+            controller = GetComponent<CharacterController>();
+        }
 
         [RPC]
         public void setOwner(NetworkPlayer aPlayer)
@@ -31,9 +35,10 @@ namespace OnLooker
             else
             {
                 //Disable other things
-
+                //enabled = false;
             }
         }
+
         [RPC]
         public NetworkPlayer getOwner()
         {

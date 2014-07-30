@@ -15,6 +15,15 @@ namespace OnLooker
             GUILayout.EndHorizontal();
             return text;
         }
+        public static string editorTextfield(string aLabel, string aContent, float aFixedLabelWidth)
+        {
+            string text = string.Empty;
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(aLabel,GUILayout.MaxWidth(aFixedLabelWidth));
+            text = GUILayout.TextField(aContent);
+            GUILayout.EndHorizontal();
+            return text;
+        }
 
         public static bool editorButton(string aLabel, string aContent)
         {

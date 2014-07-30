@@ -31,12 +31,6 @@ namespace OnLooker
         #region NetCallbacks
         //Client
         //When connected to server
-        void OnConnectedToServer()
-        {
-            //Network.Instantiate(m_ClientPrefab, Vector3.zero, Quaternion.identity, NetServer.GROUP_BASE_CLIENT);
-            Application.LoadLevel("World");
-            Debug.Log("Connected To Server");
-        }
         //Client and Server
         void OnDisconnectedFromServer(NetworkDisconnection aInfo)
         {
@@ -71,7 +65,7 @@ namespace OnLooker
         }
         void OnPlayerConnected(NetworkPlayer aPlayer)
         {
-            Debug.Log("Player Connected");
+
         }
         void OnPlayerDisconnected(NetworkPlayer aPlayer)
         {
@@ -97,6 +91,9 @@ namespace OnLooker
 
         void OnGUI()
         {
+            m_MainGUI.x = Screen.width * 0.5f - m_MainGUI.width * 0.5f;
+            m_MainGUI.y = Screen.height * 0.5f - m_MainGUI.height * 0.5f;
+
             switch (m_MenuMode)
             {
                 case MenuMode.START:
@@ -115,14 +112,26 @@ namespace OnLooker
         void menuStart()
         {
             GUILayout.BeginArea(m_MainGUI);
+            C_NetServerManager.username = Utils.editorTextfield("Username:", C_NetServerManager.username,80.0f);
             if(GUILayout.Button("Start Game"))
             {
                 m_MenuMode = MenuMode.SERVER;
             }
+            if (C_NetServerManager.username == string.Empty)
+            {
+                GUI.enabled = false;
+            }
+            else
+            {
+                GUI.enabled = true;
+            }
+            
             if (GUILayout.Button("Join Game"))
             {
                 m_MenuMode = MenuMode.CLIENT;
             }
+
+            GUI.enabled = true;
             GUILayout.EndArea();
         }
         void menuClient()

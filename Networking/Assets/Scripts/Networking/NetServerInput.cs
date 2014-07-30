@@ -25,6 +25,8 @@ namespace OnLooker
             {
                 controller = GetComponent<CharacterController>();
             }
+
+            
 		}
 		
 		// Update is called once per frame

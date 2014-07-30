@@ -46,15 +46,21 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Networking\C_NetPlayer.cs" />
+     <Compile Include="Assets\Scripts\Networking\C_NetServerManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetCManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetClientInput.cs" />
      <Compile Include="Assets\Scripts\Networking\NetLobby.cs" />
      <Compile Include="Assets\Scripts\Networking\NetManager.cs" />
-     <Compile Include="Assets\Scripts\Networking\NetPlayer.cs" />
      <Compile Include="Assets\Scripts\Networking\NetPredictor.cs" />
      <Compile Include="Assets\Scripts\Networking\NetServer.cs" />
      <Compile Include="Assets\Scripts\Networking\NetServerInput.cs" />
      <Compile Include="Assets\Scripts\Networking\NetWorld.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkGroup.cs" />
+     <Compile Include="Assets\Scripts\Networking\S_NetPlayer.cs" />
+     <Compile Include="Assets\Scripts\Networking\S_NetServerManager.cs" />
+     <Compile Include="Assets\Scripts\Networking\WorldGUI.cs" />
+     <Compile Include="Assets\Scripts\Utils\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Utils\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\Utils\Utils.cs" />
   </ItemGroup>

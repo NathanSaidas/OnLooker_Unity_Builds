@@ -59,7 +59,7 @@ namespace OnLooker
                 receiver.serverRot = rot;
 
                 receiver.lerpToTarget();
-
+                
                 for (int i = serverStateBuffer.Length - 1; i >= 1; i--)
                 {
                     serverStateBuffer[i] = serverStateBuffer[i - 1];

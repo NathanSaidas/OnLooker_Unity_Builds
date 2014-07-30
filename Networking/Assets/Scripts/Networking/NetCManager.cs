@@ -19,14 +19,16 @@ namespace OnLooker
             {
                 Network.isMessageQueueRunning = true;
                 Debug.Log("Loaded and requesting spawn");
+                //Request a spawn from the server
                 networkView.RPC("requestSpawn", RPCMode.Server, Network.player);
             }
             else
             {
-                Debug.Log("Server Loaded");
+                Debug.Log("Server Loade");
             }
+            
         }
-
+        
 	}
 
 }
