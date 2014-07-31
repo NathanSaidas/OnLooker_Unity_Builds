@@ -103,6 +103,7 @@ namespace OnLooker
                 C_Object clientObject = go.GetComponent<C_Object>();
                 if (clientObject != null)
                 {
+                    
                     clientObject.onSpawn(m_PlayersAwaitingSpawn[i].networkPlayer, m_PlayersAwaitingSpawn[i].username, m_UNG.getUniqueNumber(), this);
                 }
                 else
