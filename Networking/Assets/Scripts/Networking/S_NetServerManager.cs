@@ -65,6 +65,7 @@ namespace OnLooker
 
         private void OnPlayerConnected(NetworkPlayer aPlayer)
         {
+            
             m_QueuedPlayers.Add(aPlayer);
             m_ProcessQueue = true;
 

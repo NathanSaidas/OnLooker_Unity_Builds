@@ -53,8 +53,15 @@ namespace OnLooker
             if (Network.isServer == true && aCollider.tag == "Finish")
             {
                 //Network.Destroy(gameObject);
+                Debug.Log("Call");
                 networkView.RPC("destroy", RPCMode.AllBuffered, Network.player, handle, networkView.viewID);
             }
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log("Removing: " + gameObject.networkView.viewID);
+            Network.RemoveRPCs(gameObject.networkView.viewID);
         }
 
         void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
@@ -82,26 +89,10 @@ namespace OnLooker
         {
             if (Network.isServer && aSender == Network.player)
             {
+                
                 Network.Destroy(gameObject);
-                Network.RemoveRPCs(aViewID);
-                //Go through the list and find the game object with the matching handle
-                //for (int i = 0; i < m_ServerGameObjects.Count; i++)
-                //{
-                //    if (m_ServerGameObjects[i] != null)
-                //    {
-                //        S_UnitAI unitAI = m_ServerGameObjects[i].GetComponent<S_UnitAI>();
-                //        if (unitAI != null)
-                //        {
-                //            //If found then destroy the game object and remove it from the list
-                //            if(unitAI.handle == aHandle)
-                //            {
-                //                Network.Destroy(unitAI.gameObject);
-                //                m_ServerGameObjects.RemoveAt(i);
-                //                return;
-                //            }
-                //        }
-                //    }
-                //}
+                
+                
             }
         }
 
