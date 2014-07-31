@@ -52,9 +52,7 @@ namespace OnLooker
             //networkView.RPC("unregisterGameObject", RPCMode.Server, Network.player);
             if (Network.isServer == true && aCollider.tag == "Finish")
             {
-                //Network.Destroy(gameObject);
-                Debug.Log("Call");
-                networkView.RPC("destroy", RPCMode.AllBuffered, Network.player, handle, networkView.viewID);
+                networkView.RPC("destroy", RPCMode.AllBuffered);
             }
         }
 
@@ -85,15 +83,20 @@ namespace OnLooker
         }
 
         [RPC]
-        public void destroy(NetworkPlayer aSender, int aHandle, NetworkViewID aViewID)
+        public void destroy()
         {
-            if (Network.isServer && aSender == Network.player)
+            if (networkView.isMine)
             {
-                
+                Network.RemoveRPCs(gameObject.networkView.viewID);
                 Network.Destroy(gameObject);
-                
-                
             }
+            //if (Network.isServer && aSender == Network.player)
+            //{
+            //    
+            //    Network.Destroy(gameObject);
+            //    
+            //    
+            //}
         }
 
 	}

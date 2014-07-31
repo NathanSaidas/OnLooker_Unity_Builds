@@ -10,39 +10,35 @@ namespace OnLooker
         [SerializeField()]
         private NetworkPlayer m_Owner;
         [SerializeField()]
-        private string m_PlayerName;
-        private string m_PlayerPassword;
+        private string m_Username;
+        [SerializeField()]
+        private int m_UniqueID;
 
         [RPC]
         public void setOwner(NetworkPlayer aPlayer, string aUsername)
         {
             m_Owner = aPlayer;
-            m_PlayerName = aUsername;
+            m_Username = aUsername;
             if (aPlayer == Network.player)
             {
                 enabled = true;
             }
         }
-        [RPC]
-        public NetworkPlayer getOwner()
+
+        public NetworkPlayer owner
         {
-            return m_Owner;
+            get { return m_Owner; }
         }
         [RPC]
         public string getUsername()
         {
-            return m_PlayerName;
+            return m_Username;
         }
 
-        public string playerName
+        public string username
         {
-            get { return m_PlayerName; }
-            set { m_PlayerName = value; }
-        }
-        public string playerPassword
-        {
-            get { return m_PlayerPassword; }
-            set { m_PlayerPassword = value; }
+            get { return m_Username; }
+            set { m_Username = value; }
         }
 
         private void Update()
@@ -55,7 +51,7 @@ namespace OnLooker
             //Client input state changes go here
             if (m_Owner != null && m_Owner == Network.player)
             {
-
+                
             }  
         }
 

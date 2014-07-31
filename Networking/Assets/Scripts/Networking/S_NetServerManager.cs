@@ -6,6 +6,12 @@ namespace OnLooker
 
 	public class S_NetServerManager : MonoBehaviour 
     {
+        static private S_NetServerManager s_Instance;
+        static public S_NetServerManager instance
+        {
+            get { return s_Instance; }
+        }
+
         //The prefab of the player spawned object
         public GameObject m_PlayerPrefab;
 
@@ -15,6 +21,30 @@ namespace OnLooker
         private List<NetworkPlayer> m_QueuedPlayers = new List<NetworkPlayer>();
 
         private bool m_ProcessQueue = false;
+
+        public void Awake()
+        {
+            s_Instance = this;
+        }
+
+        public C_NetPlayer getPlayer(string aUsername)
+        {
+            if (aUsername == string.Empty)
+            {
+                return null;
+            }
+
+            C_NetPlayer player = null;
+            for (int i = 0; i < m_CurrentPlayers.Count; i++)
+            {
+                if (m_CurrentPlayers[i] != null && m_CurrentPlayers[i].username == aUsername)
+                {
+                    player = m_CurrentPlayers[i];
+                    break;
+                }
+            }
+            return null;
+        }
 
         [RPC]
         public void registerPlayer(NetworkPlayer aSender, string aUsername)
@@ -60,6 +90,7 @@ namespace OnLooker
             {
                 Debug.Log("Processed spawn requests");
                 m_ProcessQueue = false;
+                
             }
         }
 
@@ -81,7 +112,7 @@ namespace OnLooker
 
             for (int i = 0; i < m_CurrentPlayers.Count; i++)
             {
-                if (m_CurrentPlayers[i].getOwner() == aPlayer)
+                if (m_CurrentPlayers[i].owner == aPlayer)
                 {
                     //Clean Up
                     //Invoke Clean Up Function

@@ -13,6 +13,10 @@ namespace OnLooker
         {
 
         }
+        public UniqueNumberGenerator(int aStart)
+        {
+            m_NextNumber = aStart;
+        }
 
         public int getUniqueNumber()
         {
