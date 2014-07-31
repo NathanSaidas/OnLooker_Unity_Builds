@@ -24,7 +24,20 @@ namespace OnLooker
             GUILayout.EndHorizontal();
             return text;
         }
-
+        public static int editorIntField(string aLabel, int aValue)
+        {
+            string text = aValue.ToString();
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(aLabel);
+            text = GUILayout.TextField(text);
+            GUILayout.EndHorizontal();
+            int newValue = 0;
+            if (int.TryParse(text, out newValue))
+            {
+                return newValue;
+            }
+            return aValue;
+        }
         public static bool editorButton(string aLabel, string aContent)
         {
             bool click = false;

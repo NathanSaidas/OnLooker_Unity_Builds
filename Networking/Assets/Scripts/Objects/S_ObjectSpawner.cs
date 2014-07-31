@@ -69,9 +69,15 @@ namespace OnLooker
                 }
                 if (m_PlayersAwaitingDespawn[i].uniqueID == 0)
                 {
+                    Debug.Log("Null Handle Reference");
                     continue;
                 }
                 C_Object clientObject = getObject(m_PlayersAwaitingDespawn[i].uniqueID);
+                if (clientObject == null)
+                {
+                    Debug.Log("Invalid Handle Reference");
+                    continue;
+                }
                 //Destroy all RPC's attached to that game object on all clients
                 clientObject.onFlagDespawn();
                 Network.Destroy(clientObject.gameObject);
@@ -82,7 +88,7 @@ namespace OnLooker
             }
 
             //Cleanup List
-            for (int i = m_PlayersAwaitingDespawn.Count; i >= 0; i--)
+            for (int i = m_PlayersAwaitingDespawn.Count - 1; i >= 0; i--)
             {
                 if (m_PlayersAwaitingDespawn[i] == null)
                 {
@@ -135,7 +141,7 @@ namespace OnLooker
             }
 
             //Clean up list
-            for (int i = m_PlayersAwaitingSpawn.Count; i >= 0; i--)
+            for (int i = m_PlayersAwaitingSpawn.Count - 1; i >= 0; i--)
             {
                 if (m_PlayersAwaitingSpawn[i] == null)
                 {

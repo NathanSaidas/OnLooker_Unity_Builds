@@ -15,6 +15,8 @@ namespace OnLooker
 
         [SerializeField()]
         private C_Object m_CurrentObject = null;
+        [SerializeField()]
+        private int m_HandleID = 0;
 
 		void Start () 
         {
@@ -63,11 +65,12 @@ namespace OnLooker
                 networkView.RPC("requestSpawn", RPCMode.Server, Network.player, C_NetServerManager.username);
             }
             GUI.enabled = true;
+            m_HandleID = Utils.editorIntField("Handle ID: ", m_HandleID);
             if (GUILayout.Button("Despawn"))
             {
                 if(m_CurrentObject != null)
                 {
-                    networkView.RPC("requestDespawn", RPCMode.Server, Network.player, C_NetServerManager.username, m_CurrentObject.handle.uniqueID);
+                    networkView.RPC("requestDespawn", RPCMode.Server, Network.player, C_NetServerManager.username, m_HandleID);
                 }
             }
 

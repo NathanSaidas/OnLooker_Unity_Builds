@@ -35,7 +35,7 @@ namespace OnLooker
         [RPC]
         private void flagDespawn()
         {
-            C_ObjectSpawner.spawner.onObjectDespawn(Network.player);
+            //C_ObjectSpawner.spawner.onObjectDespawn(Network.player);
             Network.RemoveRPCs(gameObject.networkView.viewID);
         }
 
@@ -54,9 +54,14 @@ namespace OnLooker
         }
 
 		// Use this for initialization
-		void Start () {
+		void Start () 
+        {
 		
 		}
+        void OnDestroy()
+        {
+            C_ObjectSpawner.spawner.onObjectDespawn(Network.player);
+        }
 		
 		// Update is called once per frame
 		void Update () 
