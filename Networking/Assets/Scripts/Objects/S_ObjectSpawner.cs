@@ -56,8 +56,17 @@ namespace OnLooker
 
         void processDespawns()
         {
+            if (m_UNG == null)
+            {
+                Debug.Log("Number Generator is null");
+                return;
+            }
             for (int i = 0; i < m_PlayersAwaitingDespawn.Count; i++)
             {
+                if (m_PlayersAwaitingDespawn[i] == null)
+                {
+                    continue;
+                }
                 if (m_PlayersAwaitingDespawn[i].uniqueID == 0)
                 {
                     continue;
@@ -92,8 +101,19 @@ namespace OnLooker
 
         void processSpawns()
         {
+            if (m_UNG == null)
+            {
+                Debug.Log("Number Generator is null");
+                return;
+            }
             for (int i = 0; i < m_PlayersAwaitingSpawn.Count; i++)
             {
+                
+                if (m_PlayersAwaitingSpawn[i] == null)
+                {
+                    Debug.Log("Player is null");
+                    continue;
+                }
                 GameObject go = (GameObject)Network.Instantiate(m_Prefab, transform.position, Quaternion.identity, NetworkGroup.SERVER);
                 if (go == null)
                 {
