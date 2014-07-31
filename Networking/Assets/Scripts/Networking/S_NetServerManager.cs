@@ -43,7 +43,7 @@ namespace OnLooker
                     break;
                 }
             }
-            return null;
+            return player;
         }
 
         [RPC]
