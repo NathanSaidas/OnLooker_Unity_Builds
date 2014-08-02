@@ -18,6 +18,9 @@ namespace OnLooker
 
         private bool m_ProcessSpawns = false;
         private bool m_ProcessDespawns = false;
+
+        private List<NetworkHandle> m_DisconnectedPlayers = new List<NetworkHandle>();
+        private bool m_ProcessPlayerDisconnect = false;
 		// Use this for initialization
 		void Start () 
         {
@@ -46,12 +49,47 @@ namespace OnLooker
         {
             for (int i = 0; i < m_SpawnedObjects.Count; i++)
             {
-                if (m_SpawnedObjects[i] != null && m_SpawnedObjects[i].handle.uniqueID == aID)
+                if (m_SpawnedObjects[i] != null && m_SpawnedObjects[i].handle.id == aID)
                 {
                     return m_SpawnedObjects[i];
                 }
             }
             return null;
+        }
+
+        void processDisconnectedPlayers()
+        {
+            //Find all objects that belong to the player and delete them
+            for (int i = m_DisconnectedPlayers.Count - 1; i >= 0; i-- )
+            {
+                deleteObjectsOfPlayer(m_DisconnectedPlayers[i]);
+                m_DisconnectedPlayers.RemoveAt(i);
+            }
+
+            if (m_DisconnectedPlayers.Count == 0)
+            {
+                m_ProcessPlayerDisconnect = false;
+            }
+        }
+
+        void deleteObjectsOfPlayer(NetworkHandle aPlayer)
+        {
+            if (aPlayer == null)
+            {
+                return;
+            }
+            for (int i = 0; i < m_SpawnedObjects.Count; i++)
+            {
+                if (m_SpawnedObjects[i] == null)
+                {
+                    continue;
+                }
+                if (m_SpawnedObjects[i].handle.username == aPlayer.username)
+                {
+                    m_SpawnedObjects[i].onFlagDespawn();
+                    //Network.Destroy(m_SpawnedObjects[i]);
+                }
+            }
         }
 
         void processDespawns()
@@ -67,12 +105,12 @@ namespace OnLooker
                 {
                     continue;
                 }
-                if (m_PlayersAwaitingDespawn[i].uniqueID == 0)
+                if (m_PlayersAwaitingDespawn[i].id == 0)
                 {
                     Debug.Log("Null Handle Reference");
                     continue;
                 }
-                C_Object clientObject = getObject(m_PlayersAwaitingDespawn[i].uniqueID);
+                C_Object clientObject = getObject(m_PlayersAwaitingDespawn[i].id);
                 if (clientObject == null)
                 {
                     Debug.Log("Invalid Handle Reference");
@@ -83,7 +121,7 @@ namespace OnLooker
                 Network.Destroy(clientObject.gameObject);
 
                 //Free Up Unique Number
-                m_UNG.freeNumber(m_PlayersAwaitingDespawn[i].uniqueID);
+                m_UNG.freeNumber(m_PlayersAwaitingDespawn[i].id);
                 m_PlayersAwaitingDespawn[i] = null;
             }
 
@@ -183,8 +221,8 @@ namespace OnLooker
                 NetworkHandle spawnHandle = new NetworkHandle();
                 spawnHandle.networkPlayer = player.owner;
                 spawnHandle.username = player.username;
-                spawnHandle.uniqueID = 0;
-                spawnHandle.server = this;
+                spawnHandle.id = 0;
+                //spawnHandle.server = this;
 
                 m_PlayersAwaitingSpawn.Add(spawnHandle);
                 m_ProcessSpawns = true;
@@ -214,12 +252,21 @@ namespace OnLooker
                 NetworkHandle spawnHandle = new NetworkHandle();
                 spawnHandle.networkPlayer = player.owner;
                 spawnHandle.username = player.username;
-                spawnHandle.uniqueID = aID;
-                spawnHandle.server = this;
+                spawnHandle.id = aID;
+                //spawnHandle.server = this;
 
                 m_PlayersAwaitingDespawn.Add(spawnHandle);
                 m_ProcessDespawns = true;
 
+            }
+        }
+
+        public void onPlayerDisconnected(NetworkHandle aHandle)
+        {
+            if (aHandle != null)
+            {
+                m_DisconnectedPlayers.Add(aHandle);
+                m_ProcessPlayerDisconnect = true;
             }
         }
 	}

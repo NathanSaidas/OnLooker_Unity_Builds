@@ -10,6 +10,8 @@ namespace OnLooker
 
         public static int LEVEL_LOBBY = 0;
         public static int LEVEL_WORLD = 1;
+        public static int LEVEL_APPLICATION_MAIN = 0;
+        public static int LEVEL_SERVER_START = 1;
 
         public static string getLevelString(int aIndex)
         {
@@ -24,10 +26,11 @@ namespace OnLooker
         }
 
         [SerializeField()]
-        private string[] m_LevelNames = new string[] { "Lobby", "World" };
+        private string[] m_LevelNames = new string[] { "Lobby", "World", "Application_Main", "Server_Start" };
 
         public void Start()
         {
+            DontDestroyOnLoad(gameObject);
             s_LevelNames = m_LevelNames;
         }
         public void Update()

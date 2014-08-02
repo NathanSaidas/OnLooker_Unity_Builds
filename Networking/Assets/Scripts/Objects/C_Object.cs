@@ -18,16 +18,7 @@ namespace OnLooker
             {
                 m_Handle.networkPlayer = aOwner;
                 m_Handle.username = aUsername;
-                m_Handle.uniqueID = aUniqueID;
-                C_Object sender = aInfo.networkView.GetComponent<C_Object>();
-                if (sender != null)
-                {
-                    m_Handle.server = sender.handle.server;
-                }
-                else
-                {
-                    Debug.Log("No Sender!");
-                }
+                m_Handle.id = aUniqueID;
                 
                 C_ObjectSpawner.spawner.onObjectSpawn(this);
             }
@@ -41,7 +32,7 @@ namespace OnLooker
 
         public void onSpawn(NetworkPlayer aOwner, string aUsername, int aUniqueID,S_ObjectSpawner aServer)
         {
-            handle.server = aServer;
+            //handle.server = aServer;
             networkView.RPC("setHandle", RPCMode.AllBuffered, aOwner, aUsername, aUniqueID);
         }
         public void onFlagDespawn()

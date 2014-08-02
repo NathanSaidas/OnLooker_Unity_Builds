@@ -68,10 +68,7 @@ namespace OnLooker
             m_HandleID = Utils.editorIntField("Handle ID: ", m_HandleID);
             if (GUILayout.Button("Despawn"))
             {
-                if(m_CurrentObject != null)
-                {
-                    networkView.RPC("requestDespawn", RPCMode.Server, Network.player, C_NetServerManager.username, m_HandleID);
-                }
+                networkView.RPC("requestDespawn", RPCMode.Server, Network.player, C_NetServerManager.username, m_HandleID);
             }
 
             GUILayout.Label("---------------------");

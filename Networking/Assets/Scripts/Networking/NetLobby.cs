@@ -182,13 +182,13 @@ namespace OnLooker
         {
             //Network.InitializeServer(16, NetServer.DEFAULT_PORT,false);
             Network.InitializeServer(16, 25002, false);
-            MasterServer.RegisterHost(NetServer.GAME_TYPE, "OnLooker Server", "Test Server");
+            //MasterServer.RegisterHost(NetworkServer.GAME_TYPE, "OnLooker Server", "Test Server");
         }
 
         public IEnumerator refreshHostList()
         {
             Debug.Log("Refreshing...");
-            MasterServer.RequestHostList(NetServer.GAME_TYPE);
+            //MasterServer.RequestHostList(NetworkServer.GAME_TYPE);
         
             float timeEnd = Time.time + 3.0f;
             while (Time.time < timeEnd)

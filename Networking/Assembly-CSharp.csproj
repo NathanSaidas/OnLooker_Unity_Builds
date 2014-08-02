@@ -51,20 +51,25 @@
      <Compile Include="Assets\Scripts\Networking\NetCManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetClientInput.cs" />
      <Compile Include="Assets\Scripts\Networking\NetLobby.cs" />
-     <Compile Include="Assets\Scripts\Networking\NetManager.cs" />
      <Compile Include="Assets\Scripts\Networking\NetPredictor.cs" />
-     <Compile Include="Assets\Scripts\Networking\NetServer.cs" />
      <Compile Include="Assets\Scripts\Networking\NetServerInput.cs" />
      <Compile Include="Assets\Scripts\Networking\NetWorld.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkClient.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkComponent.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkDisconnectionInfo.cs" />
      <Compile Include="Assets\Scripts\Networking\NetworkGroup.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkHandle.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkManager.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkServer.cs" />
+     <Compile Include="Assets\Scripts\Networking\NetworkUser.cs" />
      <Compile Include="Assets\Scripts\Networking\S_NetPlayer.cs" />
      <Compile Include="Assets\Scripts\Networking\S_NetServerManager.cs" />
      <Compile Include="Assets\Scripts\Networking\WorldGUI.cs" />
      <Compile Include="Assets\Scripts\Objects\C_Object.cs" />
      <Compile Include="Assets\Scripts\Objects\C_ObjectSpawner.cs" />
-     <Compile Include="Assets\Scripts\Objects\NetworkHandle.cs" />
      <Compile Include="Assets\Scripts\Objects\S_Object.cs" />
      <Compile Include="Assets\Scripts\Objects\S_ObjectSpawner.cs" />
+     <Compile Include="Assets\Scripts\Scene\MainScene.cs" />
      <Compile Include="Assets\Scripts\Unit\AIUnitControl.cs" />
      <Compile Include="Assets\Scripts\Unit\C_UnitSpawner.cs" />
      <Compile Include="Assets\Scripts\Unit\S_UnitAI.cs" />
@@ -73,8 +78,10 @@
      <Compile Include="Assets\Scripts\Unit\UnitSelectionManager.cs" />
      <Compile Include="Assets\Scripts\Utils\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Utils\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\Utils\Prefab.cs" />
      <Compile Include="Assets\Scripts\Utils\UniqueNumberGenerator.cs" />
      <Compile Include="Assets\Scripts\Utils\Utils.cs" />
+     <Compile Include="Assets\Scripts\Utils\Value.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,6 +45,17 @@ namespace OnLooker
             }
             return player;
         }
+        private C_NetPlayer getPlayer(NetworkPlayer aPlayer)
+        {
+            for (int i = 0; i < m_CurrentPlayers.Count; i++)
+            {
+                if (m_CurrentPlayers[i] != null && m_CurrentPlayers[i].owner == aPlayer)
+                {
+                    return m_CurrentPlayers[i];
+                }
+            }
+            return null;
+        }
 
         [RPC]
         public void registerPlayer(NetworkPlayer aSender, string aUsername)
@@ -124,6 +135,23 @@ namespace OnLooker
             if (Network.isClient)
             {
                 Debug.LogWarning("Client called - OnPlayerDisconnected");
+            }
+
+            if (C_ObjectSpawner.spawner != null)
+            {
+                S_ObjectSpawner serverSpawner = C_ObjectSpawner.spawner.GetComponent<S_ObjectSpawner>();
+                if (serverSpawner != null)
+                {
+                    
+                    C_NetPlayer triggeringPlayer = getPlayer(aPlayer);
+                    if (triggeringPlayer != null)
+                    {
+                        NetworkHandle networkHandle = new NetworkHandle();
+                        networkHandle.networkPlayer = aPlayer;
+                        networkHandle.username = triggeringPlayer.username;
+                        serverSpawner.onPlayerDisconnected(networkHandle);
+                    }
+                }
             }
         }
 
