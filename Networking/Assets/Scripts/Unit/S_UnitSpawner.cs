@@ -51,7 +51,7 @@ namespace OnLooker
                     S_UnitAI unitAI = unitGO.GetComponent<S_UnitAI>();
                     if (unitAI != null)
                     {
-                        unitAI.handle = ung.getUniqueNumber();
+                        //unitAI.handle = ung.getUniqueNumber();
                     }
                     m_ServerGameObjects.Add(unitGO);
                 }

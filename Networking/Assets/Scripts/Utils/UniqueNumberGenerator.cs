@@ -35,7 +35,7 @@ namespace OnLooker
         //Adds a number onto the free number List
         public void freeNumber(int aNumber)
         {
-            if (m_FreeNumbers.Contains(aNumber))
+            if (m_FreeNumbers.Contains(aNumber) || m_NextNumber < aNumber)
             {
                 return;
             }

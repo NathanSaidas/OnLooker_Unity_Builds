@@ -3,101 +3,90 @@ using System.Collections.Generic;
 
 namespace OnLooker
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-	public class S_UnitAI : MonoBehaviour
+    public interface INetworkListener
     {
+        void callMethod(string aName, object[] aArgs);
+    }
+
+    [RequireComponent(typeof(NavMeshAgent))]
+	public class S_UnitAI : MonoBehaviour , INetworkListener
+    {
+        public const byte STATE_IDLE = 0;
+        public const byte STATE_MOVING = 1;
+
         private NavMeshAgent m_Agent = null;
+
+
         [SerializeField()]
-        private Vector3 m_Destination = Vector3.zero;
+        private VectorValue m_Destination = new VectorValue("m_Destination", Vector3.zero);
+        private ByteValue m_State = new ByteValue("m_State", STATE_IDLE);
+        private NetworkComponent m_Network = null;
+
+        //Client
+        private bool m_IsSelected = false;
 
 
-        //Memory / System Information
-        private int m_Handle = 0;
-        private bool m_IsDirty = false;
-        public int handle
-        {
-            get { return m_Handle; }
-            set { m_Handle = value; }
-        }
-        public bool isDirty
-        {
-            get { return m_IsDirty; }
-            set { m_IsDirty = value; }
-        }
 		// Use this for initialization
 		void Start () 
         {
-            if (m_Agent == null)
+            m_Network = GetComponent<NetworkComponent>();
+            if (m_Network == null)
             {
-                m_Agent = GetComponent<NavMeshAgent>();
+                Debug.LogError("MISSING NETWORK COMPONENT");
             }
-            GameObject go = GameObject.FindGameObjectWithTag("Finish");
-            if (go != null)
+            if (Network.isClient)
             {
-                m_Destination = go.transform.position;
+                m_Destination.setReadOnly();
+                m_State.setReadOnly();
             }
+            else if (Network.isServer)
+            {
+                m_Destination.setWriteOnly();
+                m_State.setWriteOnly();
+            }
+            m_Network.registerListener(this);
+
+            m_Network.addValue(m_Destination);
+            m_Network.addValue(m_State);
 		}
 		
 		// Update is called once per frame
 		void Update () 
         {
-            if (m_Agent != null)
+            
+
+            switch (m_State.data)
             {
-                m_Agent.SetDestination(m_Destination);
+                case STATE_IDLE:
+                    Debug.Log("Idle");
+                    break;
+
+                case STATE_MOVING:
+                    Debug.Log("Moving");
+                    break;
             }
+
+            
 		}
 
         void OnTriggerEnter(Collider aCollider)
         {
-            //networkView.RPC("unregisterGameObject", RPCMode.Server, Network.player);
-            if (Network.isServer == true && aCollider.tag == "Finish")
-            {
-                networkView.RPC("destroy", RPCMode.AllBuffered);
-            }
+            
         }
 
-        void OnDestroy()
+        public void callMethod(string aName, object[] aArgs)
         {
-            Debug.Log("Removing: " + gameObject.networkView.viewID);
-            Network.RemoveRPCs(gameObject.networkView.viewID);
-        }
-
-        void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
-        {
-            Vector3 position = transform.position;
-            Vector3 rotation = transform.rotation.eulerAngles;
-
-            if (stream.isWriting && Network.isServer)
+            if(aName == "setPosition")
             {
-                stream.Serialize(ref position);
-                stream.Serialize(ref rotation);
-            }
-            else
-            {
-                stream.Serialize(ref position);
-                stream.Serialize(ref rotation);
-
-                transform.position = position;
-                transform.rotation = Quaternion.Euler(rotation);
+                if (aArgs[0].GetType() == typeof(Vector3))
+                {
+                    transform.position = (Vector3)aArgs[0];
+                }
             }
         }
 
-        [RPC]
-        public void destroy()
-        {
-            if (networkView.isMine)
-            {
-                Network.RemoveRPCs(gameObject.networkView.viewID);
-                Network.Destroy(gameObject);
-            }
-            //if (Network.isServer && aSender == Network.player)
-            //{
-            //    
-            //    Network.Destroy(gameObject);
-            //    
-            //    
-            //}
-        }
+
+        
 
 	}
 

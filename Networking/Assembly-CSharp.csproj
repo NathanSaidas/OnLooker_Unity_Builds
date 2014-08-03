@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\Unit\S_UnitSpawner.cs" />
      <Compile Include="Assets\Scripts\Unit\UnitControl.cs" />
      <Compile Include="Assets\Scripts\Unit\UnitSelectionManager.cs" />
+     <Compile Include="Assets\Scripts\Utils\CameraControl.cs" />
      <Compile Include="Assets\Scripts\Utils\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Utils\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\Utils\Prefab.cs" />
